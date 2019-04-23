@@ -264,7 +264,7 @@ values."
    ;;                       text-mode
    ;;   :size-limit-kb 1000)
    ;; (default nil)
-   dotspacemacs-line-numbers 1
+   dotspacemacs-line-numbers t
    ;; Code folding method. Possible values are `evil' and `origami'.
    ;; (default 'evil)
    dotspacemacs-folding-method 'evil
@@ -317,7 +317,7 @@ you should place your code here."
   (global-hl-line-mode -1)
   (global-set-key [(control ?h)] 'delete-backward-char) ;; make backspace .. backspace
   ;;(setq-default dotspacemacs-themes '(afternoon ample-flat))
-  ;;(global-display-line-numbers-mode)
+  (global-display-line-numbers-mode)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
