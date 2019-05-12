@@ -320,6 +320,7 @@ you should place your code here."
   (setq vc-follow-symlinks t)
   (add-to-list 'auto-mode-alist '("\\.php$" . web-mode))
   (server-start)
+  (setq-default frame-title-format '("emacs@" (:eval system-name) " %f")) ;; %f is filename, %b is filename without full path
   ;(setq powerline-default-separator 'arrow-fade)
   ;;(setq-default dotspacemacs-themes '(afternoon ample-flat))
   ;;(global-display-line-numbers-mode)
