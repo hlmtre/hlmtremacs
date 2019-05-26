@@ -318,18 +318,19 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
-  (global-hl-line-mode -1)
+  ;; (global-hl-line-mode -1)
   (global-set-key [(control ?h)] 'delete-backward-char) ;; make backspace .. backspace
   (setq vc-follow-symlinks t)
   (add-to-list 'auto-mode-alist '("\\.php$" . web-mode))
   (server-start)
   (setq-default frame-title-format '("emacs@" (:eval system-name) " %f")) ;; %f is filename, %b is filename without full path
   (setq-default flycheck-disabled-checkers '(python-flake8))
+  (setq display-line-numbers 'absolute)
   (fset 'evil-visual-update-x-selection 'ignore)
+  (global-display-line-numbers-mode)
 
   ;; (setq powerline-default-separator 'arrow-fade)
   ;; (setq-default dotspacemacs-themes '(afternoon ample-flat))
-   (global-display-line-numbers-mode)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
