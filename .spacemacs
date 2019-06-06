@@ -326,7 +326,7 @@ you should place your code here."
   (global-set-key [(control ?h)] 'delete-backward-char) ;; make backspace .. backspace
   (setq vc-follow-symlinks t)
   (add-to-list 'auto-mode-alist '("\\.php$" . web-mode))
-  (requre 'server)
+  (require 'server)
   (unless (server-running-p)
     (server-start))
   (setq-default frame-title-format '("emacs@" (:eval system-name) " %f")) ;; %f is filename, %b is filename without full path
