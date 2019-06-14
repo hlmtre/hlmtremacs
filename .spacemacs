@@ -328,7 +328,8 @@ you should place your code here."
   (add-to-list 'auto-mode-alist '("\\.php$" . web-mode))
   (require 'server)
   (unless (server-running-p)
-    (server-start))
+    (server-start)
+    (setq server-name "primary"))
   (setq-default frame-title-format '("emacs@" (:eval system-name) " %f")) ;; %f is filename, %b is filename without full path
   (setq-default flycheck-disabled-checkers '(python-flake8))
   (setq display-line-numbers 'absolute)
