@@ -361,11 +361,14 @@ you should place your code here."
   (setq browse-url-browser-function 'w3m-browse-url)
   ;; Browse url function use w3m
   (setq w3m-view-this-url-new-session-in-background t)
+  ;; W3M view url new session in background
 
   ;; import env variables so ssh-agent works with ssh keys
   (require 'exec-path-from-shell)
   (exec-path-from-shell-copy-env "SSH_AGENT_PID")
   (exec-path-from-shell-copy-env "SSH_AUTH_SOCK")
+
+  (ad-deactivate 'doc-view-toggle-display)
   (use-package centaur-tabs
     :demand
     :config
@@ -373,7 +376,9 @@ you should place your code here."
     :bind
     ("C-<prior>" . centaur-tabs-backward)
     ("C-<next>" . centaur-tabs-forward))
-  ;; W3M view url new session in background
+    (setq centaur-tabs-set-icons t)
+    (define-key evil-normal-state-map (kbd "g t") 'centaur-tabs-forward)
+    (define-key evil-normal-state-map (kbd "g T") 'centaur-tabs-backward)
 
   ;; (setq powerline-default-separator 'arrow-fade)
   ;; (setq-default dotspacemacs-themes '(afternoon ample-flat))
@@ -412,9 +417,6 @@ This function is called at the very end of Spacemacs initialization."
    (quote
     ("bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" "eb3d6a39ddd67d9cc60b844e85297c192353150b1f978f46d91d6d96c8a53f30" default)))
  '(evil-want-Y-yank-to-eol nil)
- '(flycheck-python-flake8-executable "python3")
- '(flycheck-python-pycompile-executable "python3")
- '(flycheck-python-pylint-executable "python3")
  '(hl-todo-keyword-faces
    (quote
     (("TODO" . "#dc752f")
