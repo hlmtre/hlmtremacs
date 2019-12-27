@@ -372,20 +372,6 @@ you should place your code here."
   (exec-path-from-shell-copy-env "SSH_AUTH_SOCK")
 
   (ad-deactivate 'doc-view-toggle-display)
-<<<<<<< Updated upstream
-  (use-package centaur-tabs
-    :demand
-    :config
-    (centaur-tabs-mode t)
-    :bind
-    ("C-<prior>" . centaur-tabs-backward)
-    ("C-<next>" . centaur-tabs-forward))
-    (setq centaur-tabs-set-icons t)
-    (setq centaur-tabs-set-bar 'over)
-    (define-key evil-normal-state-map (kbd "g t") 'centaur-tabs-forward)
-    (define-key evil-normal-state-map (kbd "g T") 'centaur-tabs-backward)
-=======
->>>>>>> Stashed changes
 
   ;; (setq powerline-default-separator 'arrow-fade)
   ;; (setq-default dotspacemacs-themes '(afternoon ample-flat))
