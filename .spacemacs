@@ -70,7 +70,7 @@ values."
    ;; configuration in `dotspacemacs/user-config'.
    ;; web-mode because browsing in emacs is cool,
    ;; and exec-path-from-shell for ssh-agent (need to import env variables SSH_AGENT_PID and SSH_AUTH_SOCK)
-   dotspacemacs-additional-packages '(web-mode exec-path-from-shell centaur-tabs)
+   dotspacemacs-additional-packages '(web-mode exec-path-from-shell)
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
@@ -372,6 +372,7 @@ you should place your code here."
   (exec-path-from-shell-copy-env "SSH_AUTH_SOCK")
 
   (ad-deactivate 'doc-view-toggle-display)
+<<<<<<< Updated upstream
   (use-package centaur-tabs
     :demand
     :config
@@ -383,6 +384,8 @@ you should place your code here."
     (setq centaur-tabs-set-bar 'over)
     (define-key evil-normal-state-map (kbd "g t") 'centaur-tabs-forward)
     (define-key evil-normal-state-map (kbd "g T") 'centaur-tabs-backward)
+=======
+>>>>>>> Stashed changes
 
   ;; (setq powerline-default-separator 'arrow-fade)
   ;; (setq-default dotspacemacs-themes '(afternoon ample-flat))
