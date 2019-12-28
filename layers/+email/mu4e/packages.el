@@ -17,6 +17,7 @@
         (helm-mu :requires helm)
         org
         persp-mode
+        window-purpose
         ))
 
 (defun mu4e/post-init-persp-mode ()
@@ -82,7 +83,8 @@
        (kbd "C-k") 'mu4e-view-headers-prev
        (kbd "J") (lambda ()
                    (interactive)
-                    (mu4e-view-mark-thread '(read))))
+                   (mu4e-view-mark-thread '(read)))
+       (kbd "gu") 'mu4e-view-go-to-url)
 
       (spacemacs/set-leader-keys-for-major-mode 'mu4e-compose-mode
         dotspacemacs-major-mode-leader-key 'message-send-and-exit
@@ -151,3 +153,9 @@ mu4e-use-maildirs-extension-load to be evaluated after mu4e has been loaded."
 (defun mu4e/pre-init-org ()
   ;; load org-mu4e when org is actually loaded
   (with-eval-after-load 'org (require 'org-mu4e nil 'noerror)))
+
+(defun mu4e/pre-init-window-purpose ()
+  (spacemacs|use-package-add-hook window-purpose
+    :pre-config
+    (dolist (mode mu4e-modes)
+      (add-to-list 'purpose-user-mode-purposes (cons mode 'mail)))))

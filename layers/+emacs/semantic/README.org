@@ -1,6 +1,8 @@
 #+TITLE: Semantic layer
 
-* Table of Contents                     :TOC_4_gh:noexport:
+#+TAGS: emacs|layer
+
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -35,12 +37,10 @@ To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =semantic= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
-By default, Spacemacs sets Semantic to parse only file, local and project scope.
-For a different parsing scope, you can customize the variable
-=semanticdb-find-default-throttle=.
-
 * Key bindings
 
-| Key binding | Description                         |
-|-------------+-------------------------------------|
-| ~SPC m r~   | srefactor: refactor thing at point. |
+| Key binding | Description                              |
+|-------------+------------------------------------------|
+| ~SPC m r~   | srefactor: refactor thing at point.      |
+| ~SPC T S~   | toggle =semantic-stickyfunc-mode=        |
+| ~SPC T C-S~ | toggle =global-semantic-stickyfunc-mode= |
