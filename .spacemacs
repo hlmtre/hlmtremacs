@@ -261,6 +261,7 @@ values."
    dotspacemacs-mode-line-unicode-symbols t
 
 
+   ;;dotspacemacs-mode-line-theme 'vim-powerline
    dotspacemacs-mode-line-theme 'spacemacs
    ;; If non nil smooth scrolling (native-scrolling) is enabled. Smooth
    ;; scrolling overrides the default behavior of Emacs which recenters point
