@@ -353,6 +353,7 @@ you should place your code here."
   (setq display-line-numbers 'absolute)
   (fset 'evil-visual-update-x-selection 'ignore)
   (global-display-line-numbers-mode)
+  (setq-default tab-width 2)
 
   (setq racer-cmd "~/.cargo/bin/racer") ;; Rustup binaries PATH
   (setq racer-rust-src-path "/home/hlmtre/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src")
@@ -386,7 +387,8 @@ you should place your code here."
 
   ;;(setq spaceline-all-the-icons-separator-type 'arrow)
 
-  (set-face-attribute 'mode-line nil :font "DejaVu Sans Mono for Powerline 6")
+  (set-face-attribute 'mode-line nil :font "DejaVu Sans Mono for Powerline 9")
+  (setq epa-pinentry-mode 'loopback)
 
   (if (<= 27 emacs-major-version)
       (global-tab-line-mode)
