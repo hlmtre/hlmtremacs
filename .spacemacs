@@ -40,6 +40,7 @@ values."
      yaml
      markdown
      systemd
+     pdf
      php
      python
      games
@@ -70,7 +71,7 @@ values."
    ;; configuration in `dotspacemacs/user-config'.
    ;; web-mode because browsing in emacs is cool,
    ;; and exec-path-from-shell for ssh-agent (need to import env variables SSH_AGENT_PID and SSH_AUTH_SOCK)
-   dotspacemacs-additional-packages '(web-mode exec-path-from-shell)
+   dotspacemacs-additional-packages '(web-mode exec-path-from-shell dap-mode lsp-mode gruvbox-theme)
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
@@ -142,7 +143,7 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(ujelly
+   dotspacemacs-themes '(gruvbox-dark-
                          spacemacs-light)
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
