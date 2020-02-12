@@ -391,6 +391,8 @@ you should place your code here."
   (set-face-attribute 'mode-line nil :font "DejaVu Sans Mono for Powerline 9")
   (setq epa-pinentry-mode 'loopback)
 
+  (setq treemacs-position 'right)
+
   (if (<= 27 emacs-major-version)
       (global-tab-line-mode)
   )
