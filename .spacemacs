@@ -40,6 +40,7 @@ values."
      yaml
      markdown
      systemd
+     pdf
      php
      python
      games
@@ -70,7 +71,7 @@ values."
    ;; configuration in `dotspacemacs/user-config'.
    ;; web-mode because browsing in emacs is cool,
    ;; and exec-path-from-shell for ssh-agent (need to import env variables SSH_AGENT_PID and SSH_AUTH_SOCK)
-   dotspacemacs-additional-packages '(web-mode exec-path-from-shell)
+   dotspacemacs-additional-packages '(web-mode exec-path-from-shell dap-mode lsp-mode gruvbox-theme)
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
@@ -142,7 +143,7 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(ujelly
+   dotspacemacs-themes '(gruvbox-dark-medium
                          spacemacs-light)
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
@@ -347,12 +348,13 @@ you should place your code here."
   (require 'server)
   (unless (server-running-p)
     (server-start)
-    (setq server-name "primary"))
+    (setq server-name "server"))
   (setq-default frame-title-format '("emacs@" (:eval system-name) " %f")) ;; %f is filename, %b is filename without full path
   (setq-default flycheck-disabled-checkers '(python-flake8))
   (setq display-line-numbers 'absolute)
   (fset 'evil-visual-update-x-selection 'ignore)
   (global-display-line-numbers-mode)
+  (setq-default tab-width 2)
 
   (setq racer-cmd "~/.cargo/bin/racer") ;; Rustup binaries PATH
   (setq racer-rust-src-path "/home/hlmtre/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src")
@@ -386,7 +388,10 @@ you should place your code here."
 
   ;;(setq spaceline-all-the-icons-separator-type 'arrow)
 
-  (set-face-attribute 'mode-line nil :font "DejaVu Sans Mono for Powerline 6")
+  (set-face-attribute 'mode-line nil :font "DejaVu Sans Mono for Powerline 9")
+  (setq epa-pinentry-mode 'loopback)
+
+  (setq treemacs-position 'right)
 
   (if (<= 27 emacs-major-version)
       (global-tab-line-mode)
@@ -445,7 +450,7 @@ This function is called at the very end of Spacemacs initialization."
      ("XXX" . "#dc752f")
      ("XXXX" . "#dc752f")))
  '(package-selected-packages
-   '(ansi package-build shut-up git commander lsp-ui lsp-treemacs lsp-python-ms helm-lsp dap-mode bui tree-mode company-lsp lsp-mode yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode dash-functional helm-pydoc cython-mode anaconda-mode pythonic ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hydra lv hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-swoop helm-projectile projectile pkg-info epl helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist highlight evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu elisp-slime-nav dumb-jump f dash s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async))
+   '(lsp-ui lsp-python-ms helm-lsp dap-mode lsp-treemacs bui company-lsp lsp-mode yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode dash-functional helm-pydoc cython-mode anaconda-mode pythonic ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hydra lv hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-swoop helm-projectile projectile pkg-info epl helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist highlight evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu elisp-slime-nav dumb-jump f dash s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async))
  '(paradox-github-token t)
  '(pdf-view-midnight-colors '("#b2b2b2" . "#292b2e"))
  '(spaceline-all-the-icons-clock-always-visible t)
