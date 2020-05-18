@@ -270,7 +270,7 @@ values."
    ;; refer to the DOCUMENTATION.org for more info on how to create your own
    ;; spaceline theme. Value can be a symbol or list with additional properties.
    ;; (default '(spacemacs :separator wave :separator-scale 1.5))
-   dotspacemacs-mode-line-theme '(doom :separator none :separator-scale 1.5)
+   dotspacemacs-mode-line-theme '(all-the-icons :separator none :separator-scale 1.5)
 
    ;;dotspacemacs-mode-line-theme 'all-the-icons
    ;;dotspacemacs-mode-line-theme 'vim-powerline
