@@ -78,6 +78,12 @@ when invoking Emacs 27.1 executable on the command line, for instance:
 This is an advanced option and should not be changed unless you suspect
 performance issues due to garbage collection operations.")
 
+(defvar dotspacemacs-read-process-output-max (* 1024 1024)
+  "Set `read-process-output-max' when startup finishes.
+This defines how much data is read from a foreign process.
+Setting this >= 1 MB should increase performance for lsp servers
+in emacs 27.")
+
 (defvar dotspacemacs-elpa-https t
   "If non nil ELPA repositories are contacted via HTTPS whenever it's
 possible. Set it to nil if you have no way to use HTTPS in your
@@ -149,6 +155,10 @@ banner, `random' chooses a random text banner in `core/banners'
 directory. A string value must be a path to a .PNG file.
 If the value is nil then no banner is displayed.")
 
+(defvar dotspacemacs-startup-buffer-show-version t
+  "If bound, show Spacemacs and Emacs version at the top right of the
+Spacemacs buffer.")
+
 (defvar dotspacemacs-scratch-mode 'text-mode
   "Default major mode of the scratch buffer.")
 
@@ -205,7 +215,7 @@ original format spec, and additional customizations.")
   "Major mode leader key is a shortcut key which is the equivalent of
 pressing `<leader> m`. Set it to `nil` to disable it.")
 
-(defvar dotspacemacs-major-mode-emacs-leader-key "C-M-m"
+(defvar dotspacemacs-major-mode-emacs-leader-key (if window-system "<M-return>" "C-M-m")
   "Major mode leader key accessible in `emacs state' and `insert state'")
 
 (defvar dotspacemacs-ex-command-key ":"
@@ -418,15 +428,32 @@ visiting README.org files of Spacemacs.")
 (defvar dotspacemacs-new-empty-buffer-major-mode nil
   "Set the major mode for a new empty buffer.")
 
+(defvar dotspacemacs-use-clean-aindent-mode t
+  "Correct indentation for simple modes.
+
+If non nil activate `clean-aindent-mode' which tries to correct
+virtual indentation of simple modes. This can interfer with mode specific
+indent handling like has been reported for `go-mode'.
+If it does deactivate it here.
+(default t)")
+
+(defvar dotspacemacs--pretty-ignore-subdirs
+  '(".cache/junk")
+  "Subdirectories of `spacemacs-start-directory' to ignore when
+  prettifying Org files.")
+
 (defun dotspacemacs//prettify-spacemacs-docs ()
   "Run `spacemacs/prettify-org-buffer' if `buffer-file-name'
-has `spacemacs-start-directory'"
+looks like Spacemacs documentation."
   (when (and dotspacemacs-pretty-docs
              spacemacs-start-directory
-             buffer-file-name
-             (string-prefix-p (expand-file-name spacemacs-start-directory)
-                              (expand-file-name buffer-file-name)))
-    (spacemacs/prettify-org-buffer)))
+             buffer-file-name)
+    (let ((start-dir (expand-file-name spacemacs-start-directory))
+          (buf-path (expand-file-name buffer-file-name)))
+      (when (and (string-prefix-p start-dir buf-path)
+                 (not (--any? (string-prefix-p (expand-file-name it start-dir) buf-path)
+                              dotspacemacs--pretty-ignore-subdirs)))
+        (spacemacs/prettify-org-buffer)))))
 
 ;; only for backward compatibility
 (defalias 'dotspacemacs-mode 'emacs-lisp-mode)
