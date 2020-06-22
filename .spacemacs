@@ -38,6 +38,7 @@ values."
      html
      windows-scripts
      rust
+     lsp
      yaml
      markdown
      systemd
@@ -146,7 +147,7 @@ values."
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(gruvbox-dark-medium
-                         spacemacs-light)
+                         ample-zen)
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
@@ -403,7 +404,7 @@ you should place your code here."
 
   ;; (setq powerline-default-separator 'arrow-fade)
   ;; (setq-default dotspacemacs-themes '(afternoon ample-flat))
-  )
+)
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
@@ -432,11 +433,16 @@ This function is called at the very end of Spacemacs initialization."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ansi-color-faces-vector
+   [default bold shadow italic underline bold bold-italic bold])
  '(ansi-color-names-vector
    ["#0a0814" "#f2241f" "#67b11d" "#b1951d" "#4f97d7" "#a31db1" "#28def0" "#b2b2b2"])
+ '(company-quickhelp-color-background "#b0b0b0")
+ '(company-quickhelp-color-foreground "#232333")
  '(custom-safe-themes
    '("bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" "eb3d6a39ddd67d9cc60b844e85297c192353150b1f978f46d91d6d96c8a53f30" default))
  '(evil-want-Y-yank-to-eol nil)
+ '(fci-rule-color "#2e2e2e")
  '(hl-todo-keyword-faces
    '(("TODO" . "#dc752f")
      ("NEXT" . "#dc752f")
@@ -453,16 +459,39 @@ This function is called at the very end of Spacemacs initialization."
      ("FIXME" . "#dc752f")
      ("XXX" . "#dc752f")
      ("XXXX" . "#dc752f")))
+ '(nrepl-message-colors
+   '("#336c6c" "#205070" "#0f2050" "#806080" "#401440" "#6c1f1c" "#6b400c" "#23733c"))
  '(package-selected-packages
-   '(yasnippet-snippets xterm-color writeroom-mode visual-fill-column web-mode vterm treemacs-persp treemacs-magit tango-plus-theme string-inflection pdf-tools tablist organic-green-theme org-mime org-download org-brain multi-term modus-vivendi-theme modus-operandi-theme minitest markdown-toc magit-section lsp-python-ms kaolin-themes inkpot-theme helm-org-rifle gruvbox-theme gotham-theme flycheck-pos-tip flycheck dracula-theme doom-themes dap-mode lsp-treemacs bui lsp-mode treemacs pfuture company color-theme-sanityinc-tomorrow centered-cursor-mode markdown-mode rust-mode ac-php-core php-mode magit git-commit transient log4e yaml-mode all-the-icons yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode dash-functional helm-pydoc cython-mode anaconda-mode pythonic ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hydra lv hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-swoop helm-projectile projectile pkg-info epl helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist highlight evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu elisp-slime-nav dumb-jump f dash s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async))
+   '(lsp-ui helm-lsp yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode dash-functional helm-pydoc cython-mode anaconda-mode pythonic ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hydra lv hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-swoop helm-projectile projectile pkg-info epl helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist highlight evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu elisp-slime-nav dumb-jump f dash s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async))
  '(paradox-github-token t)
  '(pdf-view-midnight-colors '("#b2b2b2" . "#292b2e"))
  '(rust-indent-offset 2)
  '(spaceline-all-the-icons-clock-always-visible t)
  '(spaceline-all-the-icons-flycheck-alternate t)
- '(spaceline-all-the-icons-separator-type 'none)
+ '(spaceline-all-the-icons-separator-type 'none t)
  '(spaceline-all-the-icons-slim-render nil)
  '(spaceline-all-the-icons-window-number-always-visible t)
+ '(vc-annotate-background "#3b3b3b")
+ '(vc-annotate-color-map
+   '((20 . "#dd5542")
+     (40 . "#CC5542")
+     (60 . "#fb8512")
+     (80 . "#baba36")
+     (100 . "#bdbc61")
+     (120 . "#7d7c61")
+     (140 . "#6abd50")
+     (160 . "#6aaf50")
+     (180 . "#6aa350")
+     (200 . "#6a9550")
+     (220 . "#6a8550")
+     (240 . "#6a7550")
+     (260 . "#9b55c3")
+     (280 . "#6CA0A3")
+     (300 . "#528fd1")
+     (320 . "#5180b3")
+     (340 . "#6380b3")
+     (360 . "#DC8CC3")))
+ '(vc-annotate-very-old-color "#DC8CC3")
  '(xterm-mouse-mode nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
