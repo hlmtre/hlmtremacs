@@ -401,6 +401,10 @@ you should place your code here."
   (if (<= 27 emacs-major-version)
       (global-tab-line-mode)
   )
+  ;; :q should kill the current buffer rather than quitting emacs entirely
+  (evil-ex-define-cmd "q" 'kill-this-buffer)
+  ;; Need to type out :quit to close emacs
+  (evil-ex-define-cmd "quit" 'evil-quit)
 
   ;; (setq powerline-default-separator 'arrow-fade)
   ;; (setq-default dotspacemacs-themes '(afternoon ample-flat))
