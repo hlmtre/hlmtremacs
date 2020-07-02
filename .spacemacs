@@ -347,7 +347,9 @@ executes.
  This function is mostly useful for variables that need to be set
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
-  )
+  ;; (setenv "PATH" concat (getenv "PATH") ":/home/hlmtre/.cargo/bin")
+  (add-to-list 'exec-path "/home/hlmtre/.cargo/bin")
+)
 
 (defun dotspacemacs/user-config ()
   "Configuration function for user code.
