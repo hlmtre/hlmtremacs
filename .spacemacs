@@ -378,6 +378,9 @@ you should place your code here."
   (setq racer-rust-src-path "/home/hlmtre/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src")
 
   (add-hook 'rust-mode-hook #'racer-mode)
+  (add-hook 'rust-mode-hook #'lsp-lens-mode)
+  (add-hook 'rust-mode-hook #'lsp-mode)
+
   (add-hook 'racer-mode-hook #'eldoc-mode)
   (add-hook 'racer-mode-hook #'company-mode)
 
