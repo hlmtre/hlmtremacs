@@ -175,8 +175,7 @@ automatically applied to."
 (defun spacemacs/useful-buffer-p (buffer)
   "Determines if a buffer is useful."
   (let ((buf-name (buffer-name buffer)))
-    (or (with-current-buffer buffer
-          (derived-mode-p 'comint-mode))
+    (or (provided-mode-derived-p (buffer-local-value 'major-mode buffer) 'comint-mode)
         (cl-loop for useful-regexp in spacemacs-useful-buffers-regexp
                  thereis (string-match-p useful-regexp buf-name))
         (cl-loop for useless-regexp in spacemacs-useless-buffers-regexp
@@ -730,12 +729,11 @@ variable."
 
 
 
-;; adapted from bozhidar
-;; http://emacsredux.com/blog/2013/05/18/instant-access-to-init-dot-el/
 (defun spacemacs/find-user-init-file ()
   "Edit the `user-init-file', in the current window."
   (interactive)
-  (find-file-existing user-init-file))
+  (find-file-existing
+   (expand-file-name "init.el" user-emacs-directory)))
 
 (defun spacemacs/find-dotfile ()
   "Edit the `dotfile', in the current window."

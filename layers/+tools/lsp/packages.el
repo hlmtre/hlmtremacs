@@ -23,7 +23,6 @@
     :defer t
     :config
     (progn
-      (require 'lsp-clients)
       (spacemacs/lsp-bind-keys)
       (setq lsp-prefer-capf t)
       (add-hook 'lsp-after-open-hook (lambda ()
@@ -58,6 +57,8 @@
 (defun lsp/init-lsp-treemacs ()
   (use-package lsp-treemacs :defer t))
 
-(defun lsp/post-init-popwin ()
-  (push '("*lsp-help*" :dedicated t :position bottom :stick t :noselect t :height 0.4)
-        popwin:special-display-config))
+(defun lsp/pre-init-popwin ()
+  (spacemacs|use-package-add-hook popwin
+    :post-config
+    (push '("*lsp-help*" :dedicated t :position bottom :stick t :noselect t :height 0.4)
+          popwin:special-display-config)))

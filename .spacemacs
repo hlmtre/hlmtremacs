@@ -284,7 +284,7 @@ values."
    ;; spaceline theme. Value can be a symbol or list with additional properties.
    ;; (default '(spacemacs :separator wave :separator-scale 1.5))
    ;; dotspacemacs-mode-line-theme '(spacemacs :separator none :separator-scale 1.5)
-   dotspacemacs-mode-line-theme '(all-the-icons :separator wave :separator-scale 1.5)
+   dotspacemacs-mode-line-theme '(spacemacs :separator wave :separator-scale 1.5)
 
    ;;dotspacemacs-mode-line-theme 'all-the-icons
    ;;dotspacemacs-mode-line-theme 'vim-powerline
