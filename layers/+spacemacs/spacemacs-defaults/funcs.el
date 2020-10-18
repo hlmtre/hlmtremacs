@@ -1,6 +1,6 @@
 ;;; funcs.el --- Spacemacs Defaults Layer functions File
 ;;
-;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
+;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
@@ -95,6 +95,17 @@ automatically applied to."
   :group 'spacemacs
   :type '(list symbol))
 
+(defun spacemacs/custom-newline (pos)
+  "Make `RET' in a Custom-mode search box trigger that field's action, rather
+than enter an actual newline, which is useless and unexpected in a search box.
+If not in such a search box, fall back on `Custom-newline'."
+  (interactive "d")
+  (let ((w (widget-at)))
+    (if (and w
+             (eq 'editable-field (widget-type w))
+             (string-prefix-p "Search" (widget-get w :help-echo)))
+        (funcall (widget-get w :action) w)
+      (Custom-newline pos))))
 
 ;; ido-mode remaps some commands to ido counterparts.  We want default Emacs key
 ;; bindings (those under C-x) to use ido, but we want to use the original
@@ -175,8 +186,7 @@ automatically applied to."
 (defun spacemacs/useful-buffer-p (buffer)
   "Determines if a buffer is useful."
   (let ((buf-name (buffer-name buffer)))
-    (or (with-current-buffer buffer
-          (derived-mode-p 'comint-mode))
+    (or (provided-mode-derived-p (buffer-local-value 'major-mode buffer) 'comint-mode)
         (cl-loop for useful-regexp in spacemacs-useful-buffers-regexp
                  thereis (string-match-p useful-regexp buf-name))
         (cl-loop for useless-regexp in spacemacs-useless-buffers-regexp
@@ -251,30 +261,35 @@ Dedicated (locked) windows are left untouched."
   "Moves a buffer to a window, using the spacemacs numbering. follow-focus-p
 controls whether focus moves to new window (with buffer), or stays on current"
   (interactive)
-  (let ((b (current-buffer))
-        (w1 (selected-window))
-        (w2 (winum-get-window-by-number windownum)))
-    (unless (eq w1 w2)
-      (set-window-buffer w2 b)
-      (switch-to-prev-buffer)
-      (unrecord-window-buffer w1 b)))
-  (when follow-focus-p (select-window (winum-get-window-by-number windownum))))
+  (if (> windownum (length (window-list)))
+      (message "No window numbered %s" windownum)
+    (let ((b (current-buffer))
+          (w1 (selected-window))
+          (w2 (winum-get-window-by-number windownum)))
+      (unless (eq w1 w2)
+        (set-window-buffer w2 b)
+        (switch-to-prev-buffer)
+        (unrecord-window-buffer w1 b))
+      (when follow-focus-p
+        (select-window (winum-get-window-by-number windownum))))))
 
 (defun spacemacs/swap-buffers-to-window (windownum follow-focus-p)
   "Swaps visible buffers between active window and selected window.
 follow-focus-p controls whether focus moves to new window (with buffer), or
 stays on current"
   (interactive)
-  (let* ((b1 (current-buffer))
-         (w1 (selected-window))
-         (w2 (winum-get-window-by-number windownum))
-         (b2 (window-buffer w2)))
-    (unless (eq w1 w2)
-      (set-window-buffer w1 b2)
-      (set-window-buffer w2 b1)
-      (unrecord-window-buffer w1 b1)
-      (unrecord-window-buffer w2 b2)))
-  (when follow-focus-p (winum-select-window-by-number windownum)))
+  (if (> windownum (length (window-list)))
+      (message "No window numbered %s" windownum)
+    (let* ((b1 (current-buffer))
+           (w1 (selected-window))
+           (w2 (winum-get-window-by-number windownum))
+           (b2 (window-buffer w2)))
+      (unless (eq w1 w2)
+        (set-window-buffer w1 b2)
+        (set-window-buffer w2 b1)
+        (unrecord-window-buffer w1 b1)
+        (unrecord-window-buffer w2 b2)))
+    (when follow-focus-p (winum-select-window-by-number windownum))))
 
 (dotimes (i 9)
   (let ((n (+ i 1)))
