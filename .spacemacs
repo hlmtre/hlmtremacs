@@ -361,6 +361,8 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
   ;; (global-hl-line-mode -1)
+  (global-undo-tree-mode)
+  (evil-set-undo-system 'undo-tree)
   (global-set-key [(control ?h)] 'delete-backward-char) ;; make backspace .. backspace
   (setq vc-follow-symlinks t)
   (add-to-list 'auto-mode-alist '("\\.php$" . web-mode))
@@ -377,8 +379,12 @@ you should place your code here."
 
   (setq racer-cmd "~/.cargo/bin/racer") ;; Rustup binaries PATH
   (setq racer-rust-src-path "/home/hlmtre/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src")
+  (add-hook 'lsp-after-open-hook (lambda ()
+                                   (when (lsp-find-workspace 'rust-analyzer nil)
+                                     (lsp-rust-analyzer-inlay-hints-mode))))
 
-  (add-hook 'rust-mode-hook #'racer-mode)
+  ;;(add-hook 'rust-mode-hook #'racer-mode)
+  ;;((rust-mode (rust-backend . lsp)))
   (add-hook 'rust-mode-hook #'lsp-lens-mode)
   (add-hook 'rust-mode-hook #'lsp-mode)
 
@@ -412,7 +418,7 @@ you should place your code here."
 
   ;;(setq spaceline-all-the-icons-separator-type 'arrow)
 
-  (set-face-attribute 'mode-line nil :font "DejaVu Sans Mono for Powerline 10")
+  (set-face-attribute 'mode-line nil :font "DejaVu Sans Mono for Powerline 9")
   (setq epa-pinentry-mode 'loopback)
   (pinentry-start)
 
