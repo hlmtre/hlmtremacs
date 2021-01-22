@@ -44,10 +44,6 @@ values."
           lsp-ui-sideline-show-hover nil
           lsp-rust-server 'rust-analyzer
           lsp-rust-analyzer-server-display-inlay-hints t
-          lsp-rust-analyzer-display-chaining-hints t
-          lsp-rust-full-docs t
-          lsp-ui-doc-alignment (quote window)
-          lsp-ui-doc-position (quote top)
           )
      (rust :variables
            rust-format-on-save t)
@@ -91,7 +87,7 @@ values."
    ;; configuration in `dotspacemacs/user-config'.
    ;; web-mode because browsing in emacs is cool,
    ;; and exec-path-from-shell for ssh-agent (need to import env variables SSH_AGENT_PID and SSH_AUTH_SOCK)
-   dotspacemacs-additional-packages '(web-mode exec-path-from-shell dap-mode lsp-mode gruvbox-theme pinentry apt-sources-list helm-lsp)
+   dotspacemacs-additional-packages '(web-mode exec-path-from-shell dap-mode lsp-mode gruvbox-theme pinentry apt-sources-list)
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
@@ -163,8 +159,7 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(doom-gruvbox
-                         gruvbox-dark-medium
+   dotspacemacs-themes '(gruvbox-dark-medium
                          ample-zen)
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
@@ -391,8 +386,10 @@ you should place your code here."
   ;;(add-hook 'rust-mode-hook #'racer-mode)
   ;;((rust-mode (rust-backend . lsp)))
   (add-hook 'rust-mode-hook #'lsp-lens-mode)
-;
+  (add-hook 'rust-mode-hook #'lsp-mode)
+
   (add-hook 'racer-mode-hook #'eldoc-mode)
+  (add-hook 'racer-mode-hook #'company-mode)
 
   ;; pull down w3m spacemacs layer
   (shell-command "git clone https://github.com/venmos/w3m-layer.git ~/.emacs.d/private/w3m")
@@ -435,6 +432,7 @@ you should place your code here."
   ;; Need to type out :quit to close emacs
   (evil-ex-define-cmd "quit" 'evil-quit)
 
+  (lsp :variables lsp-rust-server 'rust-analyzer)
 
   ;; (setq powerline-default-separator 'arrow-fade)
   ;; (setq-default dotspacemacs-themes '(afternoon ample-flat))
@@ -526,5 +524,5 @@ This function is called at the very end of Spacemacs initialization."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:background nil)))))
+ )
 )
