@@ -29,6 +29,7 @@
         (holy-mode :location local :step pre)
         (hybrid-mode :location (recipe :fetcher local) :step pre)
         (spacemacs-theme :location built-in)
+        dash
         ))
 
 
@@ -64,10 +65,13 @@
   ;; evil-mode is mandatory for Spacemacs to work properly
   ;; evil must be require explicitly, the autoload seems to not
   ;; work properly sometimes.
+  ;; `evil-collection' wants this value
+  (setq evil-want-keybinding nil)
   (require 'evil)
   (evil-mode 1)
 
-  (when (configuration-layer/package-used-p 'undo-tree)
+  (when (and (fboundp 'evil-set-undo-system)
+             (configuration-layer/package-used-p 'undo-tree))
     (evil-set-undo-system 'undo-tree))
 
   ;; Use evil as a default jump handler
@@ -613,4 +617,8 @@ Press \\[which-key-toggle-persistent] to hide."
 
 (defun spacemacs-bootstrap/init-spacemacs-theme ()
   (use-package spacemacs-theme
+    :defer t))
+
+(defun spacemacs-bootstrap/init-dash ()
+  (use-package dash
     :defer t))

@@ -399,9 +399,9 @@ is used instead."
                 (and (file-exists-p file)
                      (lm-commentary file)))))
     (with-temp-buffer
-      (if (>= emacs-major-version 27)
+      (if (>= emacs-major-version 28)
           (insert commentary)
-        ;; Taken from 27.1's `lm-commentary'.
+        ;; Taken from 28.0's `lm-commentary'.
         (insert
          (replace-regexp-in-string       ; Get rid of...
           "[[:blank:]]*$" ""             ; trailing white-space
@@ -411,11 +411,13 @@ is used instead."
                    (concat "^;;;[[:blank:]]*\\("
                            lm-commentary-header
                            "\\):[[:blank:]\n]*")
-                   "^;;[[:blank:]]*"     ; double semicolon prefix
+                   "^;;[[:blank:]]?"     ; double semicolon prefix
                    "[[:blank:]\n]*\\'")  ; trailing new-lines
            "" commentary))))
-      (unless (= (char-before) ?\n)
+      (unless (or (bobp) (= (char-before) ?\n))
         (insert ?\n))
+      ;; We write the file even if it is empty, which is perhaps
+      ;; a questionable choice, but at least it's consistent.
       (let ((coding-system-for-write buffer-file-coding-system))
         (write-region nil nil
                       (expand-file-name (concat name "-readme.txt")
@@ -437,9 +439,13 @@ SOURCE-DIR and TARGET-DIR respectively."
                 (progn
                   (setq info (concat (file-name-sans-extension tmp) ".info"))
                   (unless (file-exists-p info)
+                    ;; If the info file is located in a subdirectory
+                    ;; and contains relative includes, then it is
+                    ;; necessary to run makeinfo in the subdirectory.
                     (with-demoted-errors "Error: %S"
                       (package-build--run-process
-                       source-dir nil "makeinfo" src "-o" info))
+                       (file-name-directory src) nil
+                       "makeinfo" src "-o" info))
                     (package-build--message "Created %s" info)))
               (delete-file tmp)))
           (with-demoted-errors "Error: %S"
